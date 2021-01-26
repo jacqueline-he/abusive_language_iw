@@ -1,8 +1,6 @@
-# abusive_language_iw
-Detecting and Classifying Online Abusive Content via BERT-based Transfer Learning
+# Detecting and Classifying Online Abusive Content via BERT-based Transfer Learning
 
-
-Abstract:
+## Abstract ## 
 The meteoric growth of social media networks in the past decade has altered the landscape of
 cyberspace communication. The rapid dissemination of abusive language on online platforms has
 generated much interest in automated systems that can detect and classify such content. However,
@@ -17,3 +15,7 @@ architectures. Next, to mitigate in-dataset racial bias, we applied a regulariza
 reweights bigrams in training data, thereby minimizing the influence of highly correlated phrases.
 Experimental results indicate that this approach substantially reduces the presence of racial bias,
 while only minimally affecting classifier performance.
+
+## Paper ##
+Please email me at [jyh@princeton.edu] for the full draft!
+
