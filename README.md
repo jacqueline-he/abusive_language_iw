@@ -16,6 +16,10 @@ reweights bigrams in training data, thereby minimizing the influence of highly c
 Experimental results indicate that this approach substantially reduces the presence of racial bias,
 while only minimally affecting classifier performance.
 
+## Datasets ##
+* [Large Scale Crowdsourcing and Characterization of Twitter Abusive Behavior](https://arxiv.org/abs/1802.00393) (Founta et al.)
+* [Demographic Dialectal Variation in Social Media: A Case Study of African-American English](https://arxiv.org/abs/1608.08868) (Blodgett et al.)
+
 ## Paper ##
 Please email me at [jyh@princeton.edu] for the full draft!
 
