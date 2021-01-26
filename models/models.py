@@ -1,5 +1,4 @@
 import numpy as np
-from google.colab import drive
 import pandas as pd
 import matplotlib.pyplot as plt
 import time
@@ -7,8 +6,6 @@ import math
 import pickle
 from sklearn.metrics import accuracy_score, matthews_corrcoef, confusion_matrix, \
     f1_score, precision_score, recall_score, roc_auc_score
-
-drive.mount('/content/drive')
 
 import tensorflow as tf
 
@@ -36,7 +33,6 @@ class DefaultModel(nn.Module):
     self.tokenizer = BertTokenizer.from_pretrained(self.bert_config)
     self.device = device
 
-  # return: pre_softmax, torch.tensor of shape (batch_size, n_class)
   def forward(self, sents):
     sents_tensor, masks_tensor, sents_lengths = sents_to_tensor(self.tokenizer, sents, self.device)
     pre_softmax = self.bert(input_ids=sents_tensor, attention_mask=masks_tensor)
@@ -68,7 +64,6 @@ class CNNModel(nn.Module):
   def forward(self, sents):
     sents_tensor, masks_tensor, sents_lengths = sents_to_tensor(self.tokenizer, sents, self.device)
     outputs = self.bert(input_ids=sents_tensor,attention_mask=masks_tensor, output_hidden_states=True)
-    # encoded_stack_layer = torch.stack(hidden[0:12], dim=1)
     encoded_stack_layer = torch.stack(outputs.hidden_states[0:12], dim=1)
     conv_out = self.conv(encoded_stack_layer)
     conv_out = torch.squeeze(conv_out, dim=3)
@@ -206,7 +201,6 @@ def train(model, bert_config, lr, lr_bert, save_path):
                 {'params': model.bert.bert.parameters()}, 
                 {'params': model.bert.classifier.parameters(), 'lr': float(lr)}], 
                 lr=float(lr_bert), eps = 1e-8)
-    # max_grad_norm=float(clip_grad)
   elif model == 'cnn':
     model = CNNModel(bert_config, device, len(label_name))
     optimizer = AdamW([
@@ -339,10 +333,8 @@ def plot_confusion_matrix(y_true, y_pred, classes, normalize=False, title=None, 
   fig, ax = plt.subplots()
   im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
   ax.figure.colorbar(im, ax=ax)
-  # We want to show all ticks...
   ax.set(xticks=np.arange(cm.shape[1]),
          yticks=np.arange(cm.shape[0]),
-         # ... and label them with the respective list entries
          xticklabels=classes, yticklabels=classes,
          title=title,
          ylabel='True label',
